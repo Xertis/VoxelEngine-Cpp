@@ -363,7 +363,7 @@ public:
     }
 
     bool getNoDelay() const override {
-        int opt;
+        int opt = 0;
         socklen_t len = sizeof(opt);
         if (getsockopt(descriptor, IPPROTO_TCP, TCP_NODELAY, (char*)&opt, &len) < 0) {
             throw handle_socket_error("getsockopt(TCP_NODELAY) failed");
