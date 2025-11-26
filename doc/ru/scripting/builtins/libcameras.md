@@ -68,4 +68,4 @@ cam:look_at(point: vec3)
 cam:look_at(point: vec3, t: number)
 ```
 
-Переключение камеры возможно через функцию player.set_camera.
+Переключение камеры возможно через функцию [player.set_camera](libplayer.md#камеры).
