@@ -15,6 +15,9 @@ player.create(name: str) -> int
 -- Удаляет игрока по ID
 player.delete(id: int)
 
+-- Возвращает ID сущности игрока
+player.get_entity(playerid: int) -> int
+
 
 -- Сеттер и геттер точки спавна игрока
 player.set_spawnpoint(playerid: int, x: number, y: number, z: number)
@@ -99,9 +102,6 @@ player.get_selected_block(playerid: int) -> x,y,z
 
 -- Возвращает ID выбранной сущности
 player.get_selected_entity(playerid: int) -> int
-
--- Возвращает ID сущности игрока
-player.get_entity(playerid: int) -> int
 ```
 
 ## Камеры
