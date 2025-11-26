@@ -1,180 +1,128 @@
-# Библиотека *player*
+## Содержание
+- [Управление игроками](#управление-игроками)
+- [Позиция и движение](#позиция-и-движение)
+- [Режимы и свойства](#режимы-и-свойства)
+- [Инвентарь и взаимодействие](#инвентарь-и-взаимодействие)
+- [Камеры](#камеры)
+- [Поиск игроков](#поиск-игроков)
+
+## Управление игроками
 
 ```lua
+-- Создает игрока и возвращает его ID
 player.create(name: str) -> int
-```
 
-Создаёт игрока и возвращает его id.
-
-```lua
+-- Удаляет игрока по ID
 player.delete(id: int)
+
+
+-- Сеттер и геттер точки спавна игрока
+player.set_spawnpoint(playerid: int, x: number, y: number, z: number)
+player.get_spawnpoint(playerid: int) -> number, number, number
+
+
+-- Сеттер и геттер имени игрока
+player.set_name(playerid: int, name: str)
+player.get_name(playerid: int) -> str
+
+
+-- Сеттер и геттер статуса "заморозки" игрока.
+player.set_suspended(pid: int, suspended: bool)
+player.is_suspended(pid: int) -> bool
 ```
 
-Удаляет игрока по id.
+## Позиция и движение
 
 ```lua
-player.get_pos(playerid: int) -> number, number, number
-```
-
-Возвращает x, y, z координаты игрока
-
-```lua
+-- Сеттер и геттер позиции игрока
 player.set_pos(playerid: int, x: number, y: number, z: number)
-```
+player.get_pos(playerid: int) -> number, number, number
 
-Устанавливает x, y, z координаты игрока
 
-```lua
-player.get_vel(playerid: int) -> number, number, number
-```
-
-Возвращает x, y, z линейной скорости игрока
-
-```lua
+-- Сеттер и геттер линейной скорости игрока
 player.set_vel(playerid: int, x: number, y: number, z: number)
-```
+player.get_vel(playerid: int) -> number, number, number
 
-Устанавливает x, y, z линейной скорости игрока
-
-```lua
-player.get_rot(playerid: int, interpolated: bool=false) -> number, number, number
-```
-
-Возвращает x, y, z вращения камеры (в градусах). Интерполяция актуальна в случаях, когда частота обновления вращения ниже частоты кадров.
-
-```lua
+-- Сеттер и геттер вращения камеры игрока
 player.set_rot(playerid: int, x: number, y: number, z: number)
-```
+player.get_rot(playerid: int, interpolated: bool) -> number, number, number
 
-Устанавливает x, y вращения камеры (в градусах)
 
-```lua
+-- Возвращает вектор направления взгляда игрока
 player.get_dir(playerid: int) -> vec3
 ```
 
-Возвращает вектор направления взгляда игрока
+## Режимы и свойства
 
 ```lua
-player.get_inventory(playerid: int) -> int, int
-```
-
-Возвращает id инвентаря игрока и индекс выбранного слота (от 0 до 9)
-
-```lua
-player.is_flight(playerid: int) -> bool
+-- Сеттер и геттер режима полета
 player.set_flight(playerid: int, bool)
-```
+player.is_flight(playerid: int) -> bool
 
-Геттер и сеттер режима полета
 
-```lua
-player.is_noclip(playerid: int) -> bool
+-- Сеттер и геттер режима noclip
 player.set_noclip(playerid: int, bool)
-```
+player.is_noclip(playerid: int) -> bool
 
-Геттер и сеттер noclip режима (выключенная коллизия игрока)
 
-```lua
-player.is_infinite_items(playerid: int) -> bool
+-- Сеттер и геттер бесконечных предметов (не удаляются из инвентаря при использовании)
 player.set_infinite_items(playerid: int, bool)
-```
+player.is_infinite_items(playerid: int) -> bool
 
-Геттер и сеттер бесконечных предметов (не удаляются из инвентаря при использовании)
 
-```lua
-player.is_instant_destruction(playerid: int) -> bool
+-- Сеттер и геттер мнгновенного разрушения блоков при активации привязки player.destroy.
 player.set_instant_destruction(playerid: int, bool)
-```
+player.is_instant_destruction(playerid: int) -> bool
 
-Геттер и сеттер мнгновенного разрушения блоков при активации привязки `player.destroy`.
 
-```lua
-player.is_loading_chunks(playerid: int) -> bool
+-- Сеттер и геттер свойства, определяющего, прогружает ли игрок чанки вокруг себя.
 player.set_loading_chunks(playerid: int, bool)
-```
+player.is_loading_chunks(playerid: int) -> bool
 
-Геттер и сеттер свойства, определяющего, прогружает ли игрок чанки вокруг.
 
-```lua
-player.get_interaction_distance(playerid: int) -> float
+-- Сеттер и геттер свойства, определяющего максимальную дистанцию взаимодействия.
 player.set_interaction_distance(playerid: int, distance: float)
+player.get_interaction_distance(playerid: int) -> float
 ```
 
-Геттер и сеттер свойства, определяющего максимальную дистанцию взаимодействия.
+## Инвентарь и взаимодействие
 
 ```lua
-player.set_spawnpoint(playerid: int, x: number, y: number, z: number) 
-player.get_spawnpoint(playerid: int) -> number, number, number
-```
+-- Возвращает ID инвентаря и индекс выбранного слота
+player.get_inventory(playerid: int) -> int, int
 
-Сеттер и геттер точки спавна игрока
-
-```lua
-player.is_suspended(pid: int) -> bool
-player.set_suspended(pid: int, suspended: bool)
-```
-
-Сеттер и геттер статуса "заморозки" игрока.
-
-При "заморозке" удаляется сущность, а игрок выключается из симуляции мира.
-
-```lua
-player.set_name(playerid: int, name: str) 
-player.get_name(playerid: int) -> str
-```
-
-Сеттер и геттер имени игрока
-
-```lua
-player.get_camera(playerid: int) -> int
-```
-
-Возвращает индекс текущей камеры игрока
-
-```lua
-player.set_camera(playerid: int, camera_index: int)
-```
-
-Переключает камеру игрока. См. [камеры](libcameras.md).
-
-```lua
+-- Устанавливает выбранный слот
 player.set_selected_slot(playerid: int, slotid: int)
-```
 
-Устанавливает индекс выбранного слота
-
-```lua
+-- Возвращает позицию выбранного блока
 player.get_selected_block(playerid: int) -> x,y,z
-```
 
-Возвращает координаты выделенного блока, либо nil
-
-```lua
+-- Возвращает ID выбранной сущности
 player.get_selected_entity(playerid: int) -> int
-```
 
-Возвращает уникальный идентификатор сущности, на которую нацелен игрок
-
-```lua
+-- Возвращает ID сущности игрока
 player.get_entity(playerid: int) -> int
 ```
 
-Возвращает уникальный идентификатор сущности игрока
+## Камеры
 
 ```lua
+-- Возвращает индекс текущей камеры игрока
+player.get_camera(playerid: int) -> int
+
+-- Переключает камеру игрока
+player.set_camera(playerid: int, camera_index: int)
+```
+
+## Поиск игроков
+
+```lua
+-- Возвращает массив id игроков в пределах сферы с центром center и радиусом radius.
 player.get_all_in_radius(center: vec3, radius: number) -> table<int>
-```
 
-Возвращает массив id игроков в пределах сферы с центром `center` и радиусом `radius`.
-
-```lua
+-- Возвращает массив id всех активных игроков.
 player.get_all() -> table<int>
+
+-- Возвращает id ближайшего к указанной позиции игрока, либо nil если игроков нет.
+player.get_nearest(position: vec3) -> int / nil
 ```
-
-Возвращает массив id всех активных игроков.
-
-```lua
-player.get_nearest(position: vec3) -> int
-```
-
-Возвращает id ближайшего к указанной позиции игрока, либо nil если игроков нет.
