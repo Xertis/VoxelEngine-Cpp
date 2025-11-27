@@ -53,7 +53,7 @@ file.read(путь: string) -> string
 file.readlines(путь: string) -> table<string>
 
 -- Читает файл в массив байт. При значении usetable = false возвращает Bytearray вместо table.
-file.read_bytes(путь: string, [опционально] usetable) -> Bytearray | table<number>
+file.read_bytes(путь: string, [опционально] usetable=false) -> Bytearray | table<number>
 
 -- Записывает текст в файл (с перезаписью)
 file.write(путь: string, текст: string) -> nil
