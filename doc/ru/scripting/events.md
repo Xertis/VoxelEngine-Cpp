@@ -14,8 +14,8 @@
 Функции для обработки событий, прописываемые в скрипте блока.
 
 > [!WARNING]
-> Mass events such as on_block_tick, on_block_present, and on_block_removed, 
-> if used carelessly or excessively, can lead to performance issues.
+> Массовые события, такие как on_block_tick, on_block_present и on_block_removed, 
+> при небрежном или чрезмерном использовании, могут привести к проблемам с производительностью.
 
 ```lua
 function on_placed(x, y, z, playerid)
