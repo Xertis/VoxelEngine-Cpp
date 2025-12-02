@@ -31,20 +31,20 @@ app.quit()
 -- Ожидает истинности утверждения (условия), проверяемого функцией, выполняя основной цикл движка.
 app.sleep_until(
     -- функция, проверяющее условия завершения ожидания
-    predicate: function() -> bool,
+    predicate: function() -> boolean,
     -- максимальное количество тактов цикла движка, после истечения которых
     -- будет брошено исключение "max ticks exceed"
-    [опционально] max_ticks = 1e9,
+    [опционально] max_ticks: int = 1e9,
     -- максимальное длительность ожидания в секундах. 
     -- (работает с системным временем, включая test-режим)
-    [опционально] timeout = 1e9
+    [опционально] timeout: number = 1e9
 )
 ```
 
 ## Контент-паки
 ```lua
 -- Проверяет, загружен ли контент.
-app.is_content_loaded() -> bool
+app.is_content_loaded() -> boolean
 
 -- Загружает контент из конфига, нельзя использовать, если контент уже загружен
 app.load_content()
@@ -52,7 +52,7 @@ app.load_content()
 -- Выгружает весь контент, сбрасывая до единственного пака ядра (`core`).
 app.reset_content(
     -- Паки, для которых не будут сброшены модули, ивенты и окружение
-    [опционально] non_reset_packs: table<string>
+    [опционально] non_reset_packs: table
 )
 
 -- Обновляет конфигурацию паков, проверяя её корректность (зависимости и доступность паков). 
@@ -79,20 +79,20 @@ app.config_packs(
 -- Создаёт новый мир и открывает его.
 app.new_world(
     -- название мира, пустая строка приведёт к созданию безымянного мира
-    name: str,
+    name: string,
     -- зерно генерации
-    seed: str,
+    seed: string,
     -- название генератора
-    generator: str
+    generator: string
     -- id локального игрока
-    [опционально] local_player: int=0
+    [опционально] local_player: int = 0
 )
 
 -- Удаляет мир по названию.
-app.delete_world(name: str)
+app.delete_world(name: string)
 
 -- Открывает мир по названию.
-app.open_world(name: str)
+app.open_world(name: string)
 
 -- Переоткрывает мир.
 app.reopen_world()
@@ -103,7 +103,7 @@ app.save_world()
 -- Закрывает мир.
 app.close_world(
     -- сохранить мир перед закрытием
-    [опционально] save_world: bool=false
+    [опционально] save_world: boolean = false
 )
 ```
 
@@ -114,20 +114,13 @@ app.close_world(
 app.get_version() -> int, int
 
 -- Возвращает значение настройки. Бросает исключение, если настройки не существует.
-app.get_setting(name: str) -> value
+app.get_setting(name: string) -> any
 
 -- Устанавливает значение настройки. Бросает исключение, если настройки не существует.
-app.set_setting(name: str, value: value)
+app.set_setting(name: string, value: any)
 
 -- Возвращает таблицу с информацией о настройке. Бросает исключение, если настройки не существует.
-app.get_setting_info(name: str) -> {
-    -- значение по-умолчанию
-    def: value
-    -- минимальное значение
-    [только числовые настройки] min: number,
-    -- максимальное значение
-    [только числовые настройки] max: number
-}
+app.get_setting_info(name: string) -> table
 
 -- Переводит окно на передний план и устанавливает фокус ввода.
 app.focus()
@@ -138,7 +131,7 @@ app.focus()
 -- Создаёт файловую систему в памяти.
 app.create_memory_device(
     -- имя точки входа
-    name: str
+    name: string
 )
 
 -- Возвращает список источников контента (путей), в порядке убывания приоритета.

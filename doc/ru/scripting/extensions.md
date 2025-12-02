@@ -18,19 +18,19 @@ table.copy(t: table) -> table
 table.deep_copy(t: table) -> table
 
 -- Возвращает количество пар в переданной таблице.
-table.count_pairs(t: table) -> integer
+table.count_pairs(t: table) -> int
 
 -- Возвращает один элемент из переданной таблицы на случайной позиции.
-table.random(t: table) -> object
+table.random(t: table) -> any
 
 -- Возвращает true, если x содержится в t.
-table.has(t: table, x: object) -> bool
+table.has(t: table, x: any) -> boolean
 
 -- Возвращает индекс объекта x в t. Если переданный объект не содержится в таблице, то функция вернёт значение -1.
-table.index(t: table, x: object) -> integer
+table.index(t: table, x: any) -> int
 
 -- Удаляет элемент x из t.
-table.remove_value(t: table, x: object)
+table.remove_value(t: table, x: any)
 
 -- Перемешивает значения в таблице.
 table.shuffle(t: table) -> table
@@ -46,7 +46,7 @@ table.filter(t: table, func: function(indx, value)) -> table
 
 -- Позволяет безопасно получать значение по указанному ключу. Если ключ существует в таблице, метод вернет его значение. 
 -- Если ключ отсутствует, метод установит его со значением default и вернет его.
-table.set_default(t: table, key: number | string, default: any) -> any | default
+table.set_default(t: table, key: int | string, default: any) -> any
 
 -- Возвращает "плоскую" версию исходной таблицы.
 table.flat(t: table) -> table
@@ -60,7 +60,7 @@ table.sub(arr: table, start: number | nil, stop: number | nil) -> table
 
 -- Добавляет значение в таблицу, только если его там изначально не было.
 table.insert_unique(t: table, val: any)
-table.insert_unique(t: table, pos: number, val: any)
+table.insert_unique(t: table, pos: int, val: any)
 
 -- Конвертирует переданную таблицу в строку.
 table.tostring(t: table) -> string
@@ -80,10 +80,10 @@ end
 
 ```lua
 -- Разбивает строку str на части по указанному разделителю/выражению separator и возвращает результат ввиде таблицы из строк. Если withpattern равен true, то параметр separator будет определяться как регулярное выражение.
-string.explode(separator: string, str: string, withpattern: bool) -> table[string]
+string.explode(separator: string, str: string, withpattern: boolean) -> table<string>
 
 -- Разбивает строку str на части по указанному разделителю delimiter и возвращает результат ввиде таблицы из строк.
-string.split(str: string, delimiter: string) -> table[string]
+string.split(str: string, delimiter: string) -> table<string>
 
 -- Экранирует специальные символы в строке, такие как `()[]+-.$%^?*` в формате `%символ`. Символ `NUL` (`\0`) будет преобразован в `%z`.
 string.pattern_safe(str: string) -> string
@@ -111,10 +111,10 @@ string.trim_left(str: string, char: string) -> string
 string.trim_right(str: string, char: string) -> string
 
 -- Возвращает true, если строка str начинается на подстроку start.
-string.starts_with(str: string, start: string) -> bool
+string.starts_with(str: string, start: string) -> boolean
 
 -- Возвращает true, если строка str заканчивается на подстроку endStr.
-string.ends_with(str: string, endStr: string) -> bool
+string.ends_with(str: string, endStr: string) -> boolean
 
 -- Также функции string.lower и string.upper переопределены на utf8.lower и utf8.upper.
 
@@ -126,15 +126,15 @@ string.escape_xml(text: string) -> string
 
 -- Добавляет char слева и справа от строки, пока её размер не будет равен size. 
 -- По стандарту char равен символу пробела.
-string.pad(str: string, size: number, char: string) -> string
+string.pad(str: string, size: int, char: string) -> string
 
 -- Добавляет char слева от строки, пока её размер не будет равен size. 
 -- По стандарту char равен символу пробела.
-string.left_pad(str: string, size: number, char: string) -> string
+string.left_pad(str: string, size: int, char: string) -> string
 
 -- Добавляет char справа от строки, пока её размер не будет равен size. 
 -- По стандарту char равен символу пробела.
-string.right_pad(str: string, size: number, char: string) -> string
+string.right_pad(str: string, size: int, char: string) -> string
 ```
 
 ## Расширения для math
@@ -148,10 +148,10 @@ math.clamp(_in: number, low: number, high: number) -> number
 math.rand(low: number, high: number) -> number
 
 -- Возвращает нормализованное значение num относительно conf.
-math.normalize(num: number, [опционально] conf: num) -> number
+math.normalize(num: number, [опционально] conf: number) -> number
 
 -- Возвращает округлённое значение num до указанного количества знаков после запятой places.
-math.round(num: number, [опционально] places: num) -> number
+math.round(num: number, [опционально] places: number) -> number
 
 -- Возвращает сумму всех принимаемых аргументов. Если в качестве аргумента была передана таблица, метод вернёт сумму всех её элементов.
 math.sum(x: number, ... | t: table) -> number
@@ -181,14 +181,14 @@ bit.execute(expr: string, args: table | nil, ...) -> number
 ```lua
 -- Возвращает true, если переданная таблица является массивом, то есть если каждый ключ — это целое число больше или равное единице 
 -- и если каждый ключ следует за прошлым.
-is_array(x: table) -> bool
+is_array(x: table) -> boolean
 
 -- Разбивает путь на две части и возвращает их: входную точку и путь к файлу.
 parse_path(path: string) -> string, string
 
 -- Вызывает функцию func iters раз, передавая ей аргументы ..., а после выводит в консоль время в микросекундах, 
 -- которое прошло с момента вызова timeit.
-timeit(iters: integer, func: func, ...)
+timeit(iters: int, func: function, ...)
 
 -- Вызывает остановку корутины до тех пор, пока не пройдёт количество секунд, указанное в timesec. 
 -- Функция может быть использована только внутри корутины.

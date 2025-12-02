@@ -8,11 +8,11 @@ time.uptime() -> number
 time.delta() -> number
 
 -- Возвращает время UTC в секундах
-time.utc_time() -> number
+time.utc_time() -> int
 
 -- Возвращает локальное (системное) время в секундах
-time.local_time() -> number
+time.local_time() -> int
 
 -- Возвращает смещение локального времени от UTC в секундах
-time.utc_offset() -> number
+time.utc_offset() -> int
 ```

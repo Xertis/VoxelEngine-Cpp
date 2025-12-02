@@ -53,7 +53,7 @@
 | Данные — это **байты** (`Bytearray`, таблица чисел 0..255) | Данные — это **текстовые строки**      |
 | `read(n)` → `Bytearray` или `table<number>`| `read()` → одна строка                 |
 | `read("i4 f")` → распаковка через `byteutil.unpack` | `read(n)` → n строк в таблице       |
-| `write(bytearray)` → запись байтов      | `write("hello")` → строка + `\n`       |
+| `write(Bytearray)` → запись байтов      | `write("hello")` → строка + `\n`       |
 | `write("i4", 42)` → `byteutil.pack`     | `write({"a","b"})` → две строки с `\n`|
 
 `read_line` / `write_line` — работают как в текстовом режиме

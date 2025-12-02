@@ -10,7 +10,7 @@
 
 ```lua
 -- Создает игрока и возвращает его ID
-player.create(name: str) -> int
+player.create(name: string) -> int
 
 -- Удаляет игрока по ID
 player.delete(id: int)
@@ -25,13 +25,13 @@ player.get_spawnpoint(playerid: int) -> number, number, number
 
 
 -- Сеттер и геттер имени игрока
-player.set_name(playerid: int, name: str)
-player.get_name(playerid: int) -> str
+player.set_name(playerid: int, name: string)
+player.get_name(playerid: int) -> string
 
 
 -- Сеттер и геттер статуса "заморозки" игрока.
-player.set_suspended(pid: int, suspended: bool)
-player.is_suspended(pid: int) -> bool
+player.set_suspended(pid: int, suspended: boolean)
+player.is_suspended(pid: int) -> boolean
 ```
 
 ## Позиция и движение
@@ -48,7 +48,7 @@ player.get_vel(playerid: int) -> number, number, number
 
 -- Сеттер и геттер вращения камеры игрока
 player.set_rot(playerid: int, x: number, y: number, z: number)
-player.get_rot(playerid: int, interpolated: bool) -> number, number, number
+player.get_rot(playerid: int, interpolated: boolean) -> number, number, number
 
 
 -- Возвращает вектор направления взгляда игрока
@@ -59,33 +59,33 @@ player.get_dir(playerid: int) -> vec3
 
 ```lua
 -- Сеттер и геттер режима полета
-player.set_flight(playerid: int, bool)
-player.is_flight(playerid: int) -> bool
+player.set_flight(playerid: int, boolean)
+player.is_flight(playerid: int) -> boolean
 
 
 -- Сеттер и геттер режима noclip
-player.set_noclip(playerid: int, bool)
-player.is_noclip(playerid: int) -> bool
+player.set_noclip(playerid: int, boolean)
+player.is_noclip(playerid: int) -> boolean
 
 
 -- Сеттер и геттер бесконечных предметов (не удаляются из инвентаря при использовании)
-player.set_infinite_items(playerid: int, bool)
-player.is_infinite_items(playerid: int) -> bool
+player.set_infinite_items(playerid: int, boolean)
+player.is_infinite_items(playerid: int) -> boolean
 
 
 -- Сеттер и геттер мнгновенного разрушения блоков при активации привязки player.destroy.
-player.set_instant_destruction(playerid: int, bool)
-player.is_instant_destruction(playerid: int) -> bool
+player.set_instant_destruction(playerid: int, boolean)
+player.is_instant_destruction(playerid: int) -> boolean
 
 
 -- Сеттер и геттер свойства, определяющего, прогружает ли игрок чанки вокруг себя.
-player.set_loading_chunks(playerid: int, bool)
-player.is_loading_chunks(playerid: int) -> bool
+player.set_loading_chunks(playerid: int, boolean)
+player.is_loading_chunks(playerid: int) -> boolean
 
 
 -- Сеттер и геттер свойства, определяющего максимальную дистанцию взаимодействия.
-player.set_interaction_distance(playerid: int, distance: float)
-player.get_interaction_distance(playerid: int) -> float
+player.set_interaction_distance(playerid: int, distance: number)
+player.get_interaction_distance(playerid: int) -> number
 ```
 
 ## Инвентарь и взаимодействие
@@ -110,7 +110,7 @@ player.get_selected_entity(playerid: int) -> int
 -- Возвращает индекс текущей камеры игрока
 player.get_camera(playerid: int) -> int
 
--- Переключает камеру игрока
+-- Переключает камеры игрока
 player.set_camera(playerid: int, camera_index: int)
 ```
 

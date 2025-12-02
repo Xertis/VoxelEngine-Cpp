@@ -19,7 +19,7 @@ block.defs_count() -> int
 block.materials: table<string, table>
 
 -- Таблица пользовательских свойств блоков (см. ../../block-properties.md)
-block.properties: table<int, table<string, object>>
+block.properties: table<int, table<string, any>>
 ```
 
 
@@ -35,7 +35,7 @@ block.set(x: int, y: int, z: int, id: int, states: int)
 -- Устанавливает блок с заданным числовым id и состоянием (0 - по-умолчанию) на заданных координатах
 -- от лица игрока, вызывая событие on_placed.
 -- playerid не является обязательным
-block.place(x: int, y: int, z: int, id: int, states: int, [optional] playerid: int)
+block.place(x: int, y: int, z: int, id: int, states: int, [опционально] playerid: int)
 
 -- Ломает блок на заданных координатах от лица игрока, вызывая событие on_broken.
 -- playerid не является обязательным
@@ -54,23 +54,23 @@ block.set_variant(x: int, y: int, z: int, index: int) -> int
 ## Свойства блоков
 ```lua
 -- Проверяет, является ли блок на указанных координатах полным
-block.is_solid_at(x: int, y: int, z: int) -> bool
+block.is_solid_at(x: int, y: int, z: int) -> boolean
 
 -- Проверяет, можно ли на заданных координатах поставить блок 
 -- (примеры: воздух, трава, цветы, вода)
-block.is_replaceable_at(x: int, y: int, z: int) -> bool
+block.is_replaceable_at(x: int, y: int, z: int) -> boolean
 
 -- Возвращает полное состояние (поворот + сегмент + доп. информация) в виде целого числа
 block.get_states(x: int, y: int, z: int) -> int
 
 -- Возвращает название блока, отображаемое в интерфейсе.
-block.caption(blockid: int) -> str
+block.caption(blockid: int) -> string
 
 -- Возвращает строковый id блока по его числовому id.
-block.name(blockid: int) -> str
+block.name(blockid: int) -> string
 
 -- Возвращает числовой id блока, принимая в качестве агрумента строковый
-block.index(name: str) -> int
+block.index(name: string) -> int
 
 -- Собирает полное состояние в виде целого числа
 block.compose_state(state: {rotation: int, segment: int, userbits: int}) -> int
@@ -79,13 +79,13 @@ block.compose_state(state: {rotation: int, segment: int, userbits: int}) -> int
 block.decompose_state(state: int) -> {int, int, int}
 
 -- Проверяет наличие тега у блока
-block.has_tag(id: int, tag: str) -> bool
+block.has_tag(id: int, tag: string) -> boolean
 
 -- Возвращает числовой id предмета, указанного в свойстве *picking-item*.
 block.get_picking_item(id: int) -> int
 
 -- Возвращает id материала блока.
-block.material(blockid: int) -> str
+block.material(blockid: int) -> string
 ```
 
 ## Raycast
@@ -132,20 +132,20 @@ block.get_rotation(x: int, y: int, z: int) -> int
 block.set_rotation(x: int, y: int, z: int, rotation: int)
 
 -- Возвращает имя профиля вращения (none/pane/pipe)
-block.get_rotation_profile(id: int) -> str
+block.get_rotation_profile(id: int) -> string
 ```
 
 ## Расширенные блоки
 
 ```lua
 -- Проверяет, является ли блок расширенным.
-block.is_extended(id: int) -> bool
+block.is_extended(id: int) -> boolean
 
 -- Возвращает размер блока.
 block.get_size(id: int) -> int, int, int
 
 -- Проверяет является ли блок сегментом расширенного блока, не являющимся главным.
-block.is_segment(x: int, y: int, z: int) -> bool
+block.is_segment(x: int, y: int, z: int) -> boolean
 
 -- Возвращает позицию главного сегмента расширенного блока или исходную позицию,
 -- если блок не является расширенным.
@@ -156,13 +156,13 @@ block.seek_origin(x: int, y: int, z: int) -> int, int, int
 
 ```lua
 -- возвращает тип модели блока (block/aabb/custom/...)
-block.get_model(id: int) -> str
+block.get_model(id: int) -> string
 
 -- возвращает имя модели блока
-block.model_name(id: int) -> str
+block.model_name(id: int) -> string
 
 -- возвращает массив из 6 текстур, назначенных на стороны блока
-block.get_textures(id: int) -> таблица строк
+block.get_textures(id: int) -> table<string>
 
 -- Возвращает массив из двух векторов (массивов из 3 чисел):
 -- 1. Минимальная точка хитбокса
@@ -187,8 +187,8 @@ block.set_user_bits(x: int, y: int, z: int, offset: int, bits: int, value: int) 
 -- * ничего не делает при отсутствии поля у блока
 block.set_field(
     x: int, y: int, z: int, 
-    name: str,
-    value: bool|int|number|string, 
+    name: string,
+    value: string | number | boolean, 
     [опционально] index: int = 0
 )
 
@@ -199,7 +199,7 @@ block.set_field(
 -- * бросает исключение при выходе за границы массива
 block.get_field(
     x: int, y: int, z: int, 
-    name: str, 
+    name: string, 
     [опционально] index: int = 0
-) -> хранимое значение или nil
+) -> any | nil
 ```

@@ -138,8 +138,8 @@ inventory.has_data(
     -- индекс слота
     slot: int,
     -- имя свойства
-    name: str
-) -> bool
+    name: string
+) -> boolean
 
 -- Возвращает копию значения локального свойства предмета по имени или nil.
 inventory.get_data(
@@ -148,7 +148,7 @@ inventory.get_data(
     -- индекс слота
     slot: int,
     -- имя свойства
-    name: str
+    name: string
 ) -> any
 
 -- Устанавливает значение локального свойства предмета по имени.
@@ -159,7 +159,7 @@ inventory.set_data(
     -- индекс слота
     slot: int,
     -- имя свойства
-    name: str
+    name: string
     -- значение
     value: any
 )

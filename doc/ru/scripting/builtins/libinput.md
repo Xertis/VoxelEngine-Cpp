@@ -24,7 +24,7 @@ input.get_binding_text(bindname: string) -> string
 input.is_active(bindname: string) -> string
 
 -- Включает/выключает привязку до выхода из мира.
-input.set_enabled(bindname: str, flag: boolean)
+input.set_enabled(bindname: string, flag: boolean)
 ```
 
 ## Курсор мыши
@@ -40,13 +40,13 @@ input.get_mouse_delta() -> {number, number}
 ```lua
 input.add_callback(
     -- Имя привязки
-    bindname: str,
+    bindname: string,
     -- Обработчик
     callback: function
     -- UI элемент-владелец обработчика (отвечает за срок жизни)
     [опционально] owner: Element,
     -- Игнорировать захват ввода UI элементами
-    [опционально] istoplevel: bool    
+    [опционально] istoplevel: boolean    
 )
 ```
 

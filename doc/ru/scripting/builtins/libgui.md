@@ -22,7 +22,7 @@ document.some_button.text = "новый текст"
 
 ```lua
 -- Возвращает переведённый текст.
-gui.str(text: str, context: str) -> str
+gui.str(text: string, context: string) -> string
 ```
 
 ## Окно и окружение
@@ -36,7 +36,7 @@ gui.get_env(document: string) -> table
 
 -- Возвращает информацию о всех загруженных локалях.
 -- Ключ - id локали в формате isolangcode_ISOCOUNTRYCODE
--- Значение - таблица { name: str }
+-- Значение - таблица { name: string }
 gui.get_locales_info() -> table
 ```
 
@@ -45,15 +45,15 @@ gui.get_locales_info() -> table
 ```lua
 -- Удаляет разметку из текста.
 gui.clear_markup(
-    language: str, -- язык разметки ("md" - Markdown)
-    text: str      -- текст с разметкой
-) -> str
+    language: string, -- язык разметки ("md" - Markdown)
+    text: string      -- текст с разметкой
+) -> string
 
 -- Экранирует разметку в тексте.
 gui.escape_markup(
-    language: str, -- язык разметки ("md" - Markdown)
-    text: str      -- текст с разметкой
-) -> str
+    language: string, -- язык разметки ("md" - Markdown)
+    text: string      -- текст с разметкой
+) -> string
 ```
 
 ## Диалоговые окна
@@ -61,23 +61,23 @@ gui.escape_markup(
 ```lua
 -- Выводит окно с сообщением. Не останавливает выполнение кода.
 gui.alert(
-    message: str,                   -- сообщение (не переводится автоматически, используйте gui.str(...))
+    message: string,                -- сообщение (не переводится автоматически, используйте gui.str(...))
     on_ok: function() -> nil        -- вызывается при закрытии
 )
 
 -- Запрашивает подтверждение действия. Не останавливает выполнение кода.
 gui.confirm(
     -- сообщение (не переводится автоматически, используйте gui.str(...))
-    message: str,
+    message: string,
     -- функция, вызываемая при подтвержении
     on_confirm: function() -> nil,
     -- функция, вызываемая при отказе/отмене
     [опционально] on_deny: function() -> nil,
     -- текст кнопки подтвержения (по-умолчанию: "Да")
     -- используйте пустую строку для значения по-умолчанию, если нужно указать no_text.
-    [опционально] yes_text: str
+    [опционально] yes_text: string
     -- текст кнопки отказа (по-умолчанию: "Нет")
-    [опционально] no_text: str
+    [опционально] no_text: string
 )
 ```
 
@@ -86,22 +86,22 @@ gui.confirm(
 ```lua
 -- Загружает UI документ и его скрипт. Возвращает имя документа.
 gui.load_document(
-    path: str,  -- путь к xml файлу, например: core:layouts/pages/main.xml
-    name: str,  -- id документа, например: core:pages/main
+    path: string,  -- путь к xml файлу, например: core:layouts/pages/main.xml
+    name: string,  -- id документа, например: core:pages/main
     args: table -- параметры для события on_open
-) -> str
+) -> string
 
 -- Загружает шаблон в лояут
 gui.template(
     -- имя шаблона в layouts/templates без пути и расширения 
-    name: str,
+    name: string,
     -- таблица переменных (может быть использована в разметке)
     -- * Пр: <label>%{text}</label>
     -- * text в данном случае, это значение из params по ключу text
     params: table,
     -- таблица, доступная в событиях как глобальная переменная DATA
     [опционально] data: table
-) -> str
+) -> string
 ```
 
 ## Корневой документ

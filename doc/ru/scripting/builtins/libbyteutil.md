@@ -3,8 +3,8 @@
 Библиотека предоставляет функции для работы с массивами байт, представленными в виде таблиц или Bytearray.
 
 ```lua
-byteutil.pack(format: str, ...) -> Bytearray
-byteutil.tpack(format: str, ...) -> table
+byteutil.pack(format: string, ...) -> Bytearray
+byteutil.tpack(format: string, ...) -> table
 ```
 
 Возвращает массив байт, содержащий переданные значения, упакованные в соответствии со строкой формата. Аргументы должны точно соответствовать значениям, требуемым форматом.
@@ -43,7 +43,7 @@ byteutil.tpack(format: str, ...) -> table
 > только выходной размер в 8 байт, значение может отличаться от ожидаемого.
 
 ```lua
-byteutil.unpack(format: str, bytes: table|Bytearray) -> ...
+byteutil.unpack(format: string, bytes: table|Bytearray) -> ...
 ```
 
 Извлекает значения из массива байт, ориентируясь на строку формата.
