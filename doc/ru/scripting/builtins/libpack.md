@@ -102,4 +102,3 @@ pack.request_writeable(packid: string, callback: function(string))
 ```
 
 Запрашивает у пользователя право на модификацию пака. При подтвержении новая точка входа будет передана в callback.
-```

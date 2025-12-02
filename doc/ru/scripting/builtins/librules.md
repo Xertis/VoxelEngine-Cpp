@@ -71,4 +71,3 @@ rules.reset(name: string)
 | allow-cheat-movement   | Разрешить специальные клавиши быстрого перемещения.             | true         |
 | allow-debug-cheats     | Разрешить нечестные элементы управления на дебаг-панели.        | true         |
 | allow-fast-interaction | Разрешить быстрое взаимодействие.                               | true         |
-```

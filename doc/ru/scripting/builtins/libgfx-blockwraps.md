@@ -21,4 +21,3 @@ gfx.blockwraps.set_texture(id: int, texture: string)
 ```
 
 Обертки не удаляются автоматически без вызова `unwrap`.
-```
