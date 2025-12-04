@@ -30,7 +30,7 @@ block.properties: table<int, table<string, any>>
 block.get(x: int, y: int, z: int) -> int
 
 -- Устанавливает блок с заданным числовым id и состоянием (0 - по-умолчанию) на заданных координатах.
--- Если передан noupdate=true, то вызов ивента `on_update` для соседних блоков не произойдёт
+-- Если передан noupdate=true, то вызов ивента `on_update` для соседних блоков не произойдёт.
 block.set(x: int, y: int, z: int, id: int, states: int, noupdate: boolean=false)
 
 -- Устанавливает блок с заданным числовым id и состоянием (0 - по-умолчанию) на заданных координатах
