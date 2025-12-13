@@ -59,7 +59,9 @@ namespace gui {
         DEFOCUS,
         RIGHT_CLICK,
         MOUSE_OVER,
-        MOUSE_OUT
+        MOUSE_OUT,
+        MOUSE_ENTER,
+        MOUSE_LEAVE,
     };
 
     using ActionsSet = TaggedCallbacksSet<UIAction, GUI&>;
@@ -167,11 +169,14 @@ namespace gui {
         virtual void setAlign(Align align);
         Align getAlign() const;
 
-        virtual void setHover(bool flag);
+        virtual void setMouseEnter(bool flag);
         bool isHover() const;
+
+        void setMouseOver(bool flag);
 
         virtual void setParent(UINode* node);
         UINode* getParent() const;
+        std::shared_ptr<UINode> getParentShared() const;
 
         /// @brief Set element color (doesn't affect inner elements).
         /// Also replaces hover color to avoid adding extra properties
@@ -289,7 +294,7 @@ namespace gui {
         /// @brief collect all nodes having id
         static void getIndices(
             const std::shared_ptr<UINode>& node,
-            std::unordered_map<std::string, std::shared_ptr<UINode>>& map
+            std::unordered_map<std::string, std::weak_ptr<UINode>>& map
         );
 
         static std::shared_ptr<UINode> find(
