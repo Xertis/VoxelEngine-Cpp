@@ -26,17 +26,17 @@ byteutil.tpack(format: string, ...) -> table
 
 | Символ    | Аналог в С++    | Тип Lua  | Размер  |
 | --------- | --------------- | -------- | ------- |
-| `b`       | int8_t          | number   | 1 byte  |
-| `B`       | uint8_t         | number   | 1 byte  |
-| `?`       | bool            | boolean  | 1 byte  |
-| `h`       | int16_t         | number   | 2 bytes |
-| `H`       | uint16_t        | number   | 2 bytes |
-| `i`       | int32_t         | number   | 4 bytes |
-| `I`       | uint32_t        | number   | 4 bytes |
-| `f`       | float32_t       | number   | 4 bytes |
-| `l`       | int64_t         | number   | 8 bytes |
-| `L`       | uint64_t        | number   | 8 bytes |
-| `d`       | float64_t       | number   | 8 bytes |
+| `b`       | int8_t          | number   | 1 байт  |
+| `B`       | uint8_t         | number   | 1 байт  |
+| `?`       | bool            | boolean  | 1 байт  |
+| `h`       | int16_t         | number   | 2 байта |
+| `H`       | uint16_t        | number   | 2 байта |
+| `i`       | int32_t         | number   | 4 байта |
+| `I`       | uint32_t        | number   | 4 байта |
+| `f`       | float32_t       | number   | 4 байта |
+| `l`       | int64_t         | number   | 8 байтов |
+| `L`       | uint64_t        | number   | 8 байтов |
+| `d`       | float64_t       | number   | 8 байтов |
 
 > [!WARNING]
 > Из-за отсутствия в Lua целочисленного типа для значений `l` и `L` гарантируется
