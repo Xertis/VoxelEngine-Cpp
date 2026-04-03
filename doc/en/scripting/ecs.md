@@ -32,7 +32,9 @@ entity:require_component(name: str) -> component
 -- Enables/disables the component
 entity:set_enabled(name: str, enable: bool)
 
--- Returns id of player the entity is bound
+-- Returns id of player the entity is bound, otherwise -1 is returned.
+-- At components initialization -1 is also returned,
+-- since the binding occurs after initialization.
 entity:get_player() -> int or nil
 ```
 
@@ -129,6 +131,9 @@ body:set_mass(mass: number)
 body:get_elasticity() -> number
 -- Sets the body's elasticity
 body:set_elasticity(elasticity: number)
+
+-- Returns the velocity of the surface the body is on, or {0,0,0}
+body:get_ground_vel() -> vec3
 ```
 
 ### Skeleton
