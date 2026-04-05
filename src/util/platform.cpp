@@ -293,6 +293,83 @@ void platform::new_engine_instance(const std::vector<std::string>& args) {
 #endif
 }
 
+void platform::new_linked_instance(const std::vector<std::string>& args) {
+    auto executable = get_executable_path();
+
+#ifdef _WIN32
+    std::stringstream ss;
+    ss << util::quote(executable.u8string());
+    for (int i = 0; i < args.size(); i++) {
+        ss << " " << util::quote(args[i]);
+    }
+
+    auto toWString = [](const std::string& src) -> std::wstring {
+        if (src.empty())
+            return L"";
+        int size = MultiByteToWideChar(CP_UTF8, 0, src.c_str(), -1, nullptr, 0);
+        if (size == 0) {
+            throw std::runtime_error(
+                "MultiByteToWideChar failed with code: " +
+                std::to_string(GetLastError())
+            );
+        }
+        std::vector<wchar_t> buffer(size + 1);
+        buffer[size] = 0;
+        size = MultiByteToWideChar(CP_UTF8, 0, src.c_str(), -1, buffer.data(), size);
+        if (size == 0) {
+            throw std::runtime_error(
+                "MultiByteToWideChar failed with code: " +
+                std::to_string(GetLastError())
+            );
+        }
+        return std::wstring(buffer.data(), size + 1);
+    };
+
+    auto commandString = toWString(ss.str());
+
+    STARTUPINFOW si = { sizeof(si) };
+    PROCESS_INFORMATION pi = { 0 };
+
+    BOOL success = CreateProcessW(
+        nullptr,
+        commandString.data(),
+        nullptr,
+        nullptr,
+        TRUE,
+        CREATE_NEW_PROCESS_GROUP,
+        nullptr,
+        nullptr,
+        &si,
+        &pi
+    );
+    if (success) {
+        CloseHandle(pi.hProcess);
+        CloseHandle(pi.hThread);
+    } else {
+        throw std::runtime_error(
+            "starting a linked instance failed with code: " +
+            std::to_string(GetLastError())
+        );
+    }
+#else
+    std::stringstream ss;
+    ss << util::quote(executable.string());
+    for (const auto& arg : args) {
+        ss << " " << util::quote(arg);
+    }
+    ss << " &";
+
+    auto command = ss.str();
+    logger.info() << command;
+    if (int res = system(command.c_str())) {
+        throw std::runtime_error(
+            "starting a linked instance failed with code: " +
+            std::to_string(res)
+        );
+    }
+#endif
+}
+
 bool platform::stdin_has_data() {
 #ifdef _WIN32
     return _kbhit();

@@ -366,6 +366,44 @@ static int l_start_debug_instance(lua::State* L) {
     return lua::pushinteger(L, port);
 }
 
+static int l_start_linked_instance(lua::State* L) {
+    const auto& params = engine->getCoreParameters();
+    const auto& paths = engine->getPaths();
+
+    auto script = std::string(lua::require_string(L, 1));
+    lua::pushvalue(L, 2);
+    auto handler = lua::create_lambda_nothrow(L);
+    if (!io::is_regular_file(script)) {
+        throw std::runtime_error(
+            "file does not exists " + util::quote(script)
+        );
+    }
+
+    std::vector<std::string> args {
+        "--headless",
+        "--res", paths.getResourcesFolder().u8string(),
+        "--dir", paths.getUserFilesFolder().u8string(),
+        "--project", params.projectFolder.u8string(),
+        "--script", io::resolve(script).string()
+    };
+
+    auto spawn = [args = std::move(args), handler = std::move(handler)]() {
+        platform::new_linked_instance(args);
+        handler({});
+    };
+
+    if (engine->getProject().permissions.has(Permissions::SPAWN_INSTANCE)) {
+        spawn();
+    } else {
+        auto str = langs::get(L"Allow spawning a linked engine instance?");
+        guiutil::confirm(*engine, str, [spawn]() {
+            spawn();
+            engine->getGUI().getMenu()->back();
+        });
+    }
+    return 0;
+}
+
 const luaL_Reg applib[] = {
     /// content
     {"is_content_loaded", lua::wrap<l_is_content_loaded>},
@@ -398,5 +436,6 @@ const luaL_Reg applib[] = {
     {"get_version", lua::wrap<l_get_version>},
     {"create_memory_device", lua::wrap<l_create_memory_device>},
     {"start_debug_instance", lua::wrap<l_start_debug_instance>},
+    {"start_linked_instance", lua::wrap<l_start_linked_instance>},
     {nullptr, nullptr}
 };
