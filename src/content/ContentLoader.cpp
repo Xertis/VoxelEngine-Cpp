@@ -494,7 +494,6 @@ void ContentLoader::loadWorldScript(ContentPackRuntime& runtime) {
 }
 
 void ContentLoader::loadScripts(Content& content) {
-    scripting::on_scripts_loading();
     load_scripts(content, content.blocks);
     load_scripts(content, content.items);
 
@@ -517,8 +516,6 @@ void ContentLoader::loadScripts(Content& content) {
             );
         });
     }
-
-    scripting::on_content_loaded();
 }
 
 void ContentLoader::loadResources(ResourceType type, const dv::value& list) {

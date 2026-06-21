@@ -114,9 +114,13 @@ void ContentControl::loadContent() {
     content = contentBuilder.build();
     scripting::on_content_load(content.get());
 
+    scripting::on_scripts_loading();
     ContentLoader::loadScripts(*content);
 
+    scripting::on_assets_loading();
     postContent();
+
+    scripting::on_content_loaded();
 }
 
 void ContentControl::setContentPacksRaw(std::vector<ContentPack>&& packs) {

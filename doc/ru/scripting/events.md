@@ -231,6 +231,12 @@ function on_scripts_loading()
 Вызывается перед загрузкой скриптов контент-пака
 
 ```lua
+function on_assets_loading()
+```
+
+Вызывается перед загрузкой ассетов
+
+```lua
 function on_content_loaded()
 ```
 

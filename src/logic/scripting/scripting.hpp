@@ -160,8 +160,11 @@ namespace scripting {
     /// @brief Called on UI view close
     void on_ui_close(UiDocument* layout, Inventory* inventory);
 
-    /// @brief Called on Content loading
+    /// @brief Called on Scripting loading
     void on_scripts_loading();
+
+    /// @brief Called on Assets loading
+    void on_assets_loading();
 
     /// @brief Called on Content loading finish
     void on_content_loaded();

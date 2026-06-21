@@ -220,6 +220,12 @@ function on_scripts_loading()
 Called before the content pack scripts are loaded
 
 ```lua
+function on_assets_loading()
+```
+
+Called before the content pack assets are loaded
+
+```lua
 function on_content_loaded()
 ```
 
