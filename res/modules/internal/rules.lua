@@ -1,4 +1,4 @@
-local rules = { nexid = 1, rules = {} }
+local rules = { nextid = 1, rules = {} }
 local attached = {}
 
 function rules.get_rule(name)
