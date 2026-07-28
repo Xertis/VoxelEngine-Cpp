@@ -1,39 +1,41 @@
-local rules = {nexid = 1, rules = {}}
+local rules = { nexid = 1, rules = {} }
+local attached = {}
 
 function rules.get_rule(name)
     local rule = rules.rules[name]
     if rule == nil then
-        rule = {listeners={}}
+        rule = { listeners = {} }
         rules.rules[name] = rule
     end
     return rule
 end
 
-function rules.get(name)
-    local rule = rules.rules[name]
-    if rule == nil then
-        return nil
-    end
-    return rule.value
+function rules.get_attached_rules(pid)
+	return table.set_default(attached, pid or hud.get_player(), {})
 end
 
-function rules.set(name, value)
+function rules.get(name, pid)
+    return rules.get_attached_rules(pid)[name]
+end
+
+function rules.set(name, value, pid)
     local rule = rules.get_rule(name)
-    rule.value = value
+    rules.get_attached_rules(pid)[name] = value
+
     for _, handler in pairs(rule.listeners) do
-        handler(value)
+        handler(value, pid)
     end
 end
 
-function rules.reset(name)
+function rules.reset(name, pid)
     local rule = rules.get_rule(name)
-    rules.set(rule.default)
+    rules.set(name, rule.default, pid)
 end
 
 function rules.listen(name, handler)
     local rule = rules.get_rule(name)
-    local id = rules.nexid
-    rules.nextid = rules.nexid + 1
+    local id = rules.nextid
+    rules.nextid = rules.nextid + 1
     rule.listeners[utf8.encode(id)] = handler
     return id
 end
@@ -63,6 +65,7 @@ function rules.unlisten(name, id)
 end
 
 function rules.clear()
+    attached = {}
     rules.rules = {}
     rules.nextid = 1
 end
