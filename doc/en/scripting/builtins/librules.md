@@ -38,13 +38,27 @@ rules.unlisten(name: str, id: int)
 Removes a rule handler by id, if it exists.
 
 ```lua
-rules.get(name: str) -> bool | nil
+rules.get(
+    -- rule name
+    name: str,
+    -- [optional] id of the player the value is attached to
+    -- defaults to the current player
+    pid: int
+) -> bool | nil
 ```
 
 Returns the rule value, or nil if it has not been created yet.
 
 ```lua
-rules.set(name: str, value: bool)
+rules.set(
+    -- rule name
+    name: str,
+    -- value
+    value: bool,
+    -- [optional] id of the player the value is attached to
+    -- defaults to the current player
+    pid: int
+)
 ```
 
 Sets the rule value by calling handlers. Can be used before
